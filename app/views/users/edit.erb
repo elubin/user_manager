@@ -1,0 +1,21 @@
+<br /><br /><br />
+<%= form_for @user do |f| %>
+
+<table>
+  <tr>
+    <td><%= f.label :name, "Name:" %></td>
+    <td><%= f.text_field :name %></td>
+  </tr>
+  <tr>
+    <td>Manages:</td>
+    <td>
+      <%= fields_for :manager do |m| %>
+          <%= m.select :direct_report_id, options_for_select(@all_users.map {|u| [u.name, u.id]}, @direct_reports), {}, {multiple: true, size: 10} %>
+      <% end %>
+
+    </td>
+  </tr>
+</table>
+  <%= f.submit %>
+
+<% end %>
