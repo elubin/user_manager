@@ -4,9 +4,9 @@ class Manage < ActiveRecord::Base
 
 
   belongs_to :user
-  belongs_to :direct_report, class_name: 'User'
+  belongs_to :direct_report, class_name: 'User', foreign_key: :user_id
 
-
+  #has_many :reports_to, :through => :manages
 
   #has_one :manager, primary_key: :user_id
   #has_one :direct_report, primary_key: :direct_report_id, foreign_key: :id

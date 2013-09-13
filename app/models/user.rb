@@ -4,7 +4,12 @@ class User < ActiveRecord::Base
 
 
   has_many :manages
-  has_many :direct_reports, :class_name => "User", :through => :manages, :foreign_key => 'direct_report_id'
+  has_many :direct_reports, :class_name => "User", :through => :manages
 
-  has_many :reports_to, :class_name => "User", :through => :manages, :foreign_key => 'direct_report_id', source: :manages
+  # this generates the incorrect "WHERE manages.user_id=1"
+  has_many :reports_to, through: :manages, source: :direct_report
+
+  # WORKS!
+  # SELECT "users".* FROM "users" INNER JOIN "manages" ON "users"."id" = "manages"."user_id" WHERE "manages"."direct_report_id" = 1;
+
 end
